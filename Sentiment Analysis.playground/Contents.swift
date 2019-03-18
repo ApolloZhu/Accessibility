@@ -24,10 +24,10 @@ func dataTable(fromFile url: URL) -> MLDataTable {
 //: Column 1 classifies the sentence, but we have to convert it first
     table.addColumn(table.map { row -> String in
         switch row["X1"]?.intValue {
-        case 0?: return "negative"
-        case 2?: return "neutral"
-        case 4?: return "positive"
-        default: fatalError("Unrecognized sentiment")
+        case 0?: return Sentiment.negative.rawValue
+        case 2?: return Sentiment.neutral.rawValue
+        case 4?: return Sentiment.positive.rawValue
+        default: fatalError("Unrecognized sentiment label")
         }
     }, named: "Label")
     return table
@@ -55,8 +55,14 @@ print("""
 Validation Accuracy: \(validationAccuracy)%
 Evaluation Accuracy: \(evaluationAccuracy)%
 """)
-//: - Experiment: Why don't we test it with some comments about this playground?
-print(try! sentimentClassifier.prediction(from: "This looks fantastic"))
+//: - Note: 😍 is positive, 😐 is neutral, and 😡 is negative
+sentimentClassifier.sentiment(of: "This looks fantastic")
+sentimentClassifier.sentiment(of: "It's okay")
+sentimentClassifier.sentiment(of: "I didn't learn anything at all")
+//: - Experiment: Why don't we test it with your comments about this playground?
+
+
+
 //: ## Exporting MLModel
 //: Now we've verified it, let's save the model with some metadata to describe it:
 let metadata = MLModelMetadata(
@@ -68,7 +74,8 @@ let metadata = MLModelMetadata(
     version: "1.0"
 )
 //: Save the trained model as `Sentiment140.mlmodel`
-let url = playgroundSharedDataDirectory.absoluteURL.appendingPathComponent("Sentiment140.mlmodel")
+let url = playgroundSharedDataDirectory.absoluteURL
+    .appendingPathComponent("Sentiment140.mlmodel")
 try sentimentClassifier.write(to: url, metadata: metadata)
 //: Lastly, open it so we can use it later!
 NSWorkspace.shared.open(url)
