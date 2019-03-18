@@ -3,7 +3,7 @@
  - Important: For the datasets are *too large*, in order to run this playground, please
  1. download training data from [Sentiment140](http://help.sentiment140.com/for-students/)
  2. unzip it
- 3. drag and drop the 2 csv files to the `Resources` folder you see on the left
+ 3. drag and drop the `testdata.manual.2009.06.14.csv` file to the `Resources` folder you see on the left
  - Experiment: Ready? Let's begin!
  */
 import Cocoa
@@ -32,9 +32,10 @@ func dataTable(fromFile url: URL) -> MLDataTable {
     }, named: "Label")
     return table
 }
-//: Now we can load the data tables:
-let trainingData = dataTable(fromFile: #fileLiteral(resourceName: "training.1600000.processed.noemoticon.csv"))
-let testData = dataTable(fromFile: #fileLiteral(resourceName: "testdata.manual.2009.06.14.csv"))
+//: Now we can load the data tables and create 2 tables from it,
+//: one for generating the model and one for evaluating the model.
+//: - Example: Here we use 90% of the data for training, but you can change it and see how the model behaves.
+let (trainingData, testData) = dataTable(fromFile: #fileLiteral(resourceName: "testdata.manual.2009.06.14.csv")).randomSplit(by: 0.9)
 //: ## Creating Maching Learning Model
 //: Now we have a way to generate datatables,
 //: we can create a text classifier from the dataset
