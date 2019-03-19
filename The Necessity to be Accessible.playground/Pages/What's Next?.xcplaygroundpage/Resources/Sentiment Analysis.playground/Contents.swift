@@ -78,6 +78,7 @@ let metadata = MLModelMetadata(
 let url = playgroundSharedDataDirectory.absoluteURL
     .appendingPathComponent("Sentiment140.mlmodel")
 try sentimentClassifier.write(to: url, metadata: metadata)
-//: Lastly, open it so we can use it later!
-NSWorkspace.shared.open(url)
+//: Lastly, we'll compile it so we can use it in our Playground
+let compiledModelURL = try MLModel.compileModel(at: url)
+NSWorkspace.shared.open(compiledModelURL.deletingLastPathComponent())
 //: We're all set. Have a nice day!
