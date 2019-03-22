@@ -5,8 +5,4 @@
  - Drag n Drop accessibility
  */
 
-import Foundation
-
-var str = "Hello, playground"
-
 //: [Previous](@previous) | [Next](@next)
