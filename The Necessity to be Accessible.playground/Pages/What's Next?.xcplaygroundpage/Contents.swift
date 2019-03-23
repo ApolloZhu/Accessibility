@@ -3,7 +3,8 @@
  
  - Callout(Congratulations!):
  Now you've learned some basics to make your apps more accessible. Go ahead and audit **all**
- your apps--on iOS, macOS, watchOS, tvOS, and even the webpage for your app--for accessibility.
+ your apps--on iOS, macOS, watchOS, tvOS, and even the webpage for your app--for accessibility,
+ using real devices with accessibility features enabled, or the *Accessibility Inspector*.
  You should refer to resources like [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/ios/app-architecture/accessibility/)
  and [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standards-guidelines/wcag/).
  Share with your friends and your team, let them also join us in improving our world to allow
