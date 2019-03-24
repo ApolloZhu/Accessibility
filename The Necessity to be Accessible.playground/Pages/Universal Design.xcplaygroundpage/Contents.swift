@@ -38,7 +38,7 @@ imageButton.accessibilityValue = NSLocalizedString(
 //: ---
 //:
 //: ## RTL and Text Display
-let view = UIView(); let label = UILabel();
+let view = UIView(); let label = UILabel()
 view.addSubview(imageButton); view.addSubview(label)
 label.text = localizedText_switchTheme
 /*:
@@ -47,13 +47,16 @@ label.text = localizedText_switchTheme
  So let's fix the following constraints:
  */
 label.translatesAutoresizingMaskIntoConstraints = false
+#warning("FIXME: Not working for RTL languages")
 NSLayoutConstraint.activate([
 //: - Experiment: Replace "left" with "leading" and "right" with "trailing"
 //: so the interface will be automatically fliped when text direction should
-//: be from right to left.
-    imageButton.leftAnchor.constraint(equalTo: view.leftAnchor),
+//: be from right to left. Readable content guide is also a good thing to layout
+//: against should you expect your content to be super long.
+//: Once you are done, remove the warning statement on line 50.
+    imageButton.leftAnchor.constraint(equalTo: view.readableContentGuide.leftAnchor),
     imageButton.rightAnchor.constraint(equalTo: label.leftAnchor),
-    label.rightAnchor.constraint(equalTo: view.rightAnchor)
+    label.rightAnchor.constraint(equalTo: view.readableContentGuide.rightAnchor)
 ])
 /*:
  ---

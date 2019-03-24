@@ -21,21 +21,32 @@
  but really, you *want* to become part of the ecosystem, because users are expecting that.
  They can already tripple tap on an image to get an automatically generated description,
  and using system-provided UIKit controls already provides a fair experience.
-
- You may still not be convineced, wondering why would your small user base ever use your app that way.
+ And if you are doing UITexting, setting the following property will make your
+ testing suite even more robust during the process of internationalization:
+ */
+import UIKit
+var button = UIView()
+button.accessibilityIdentifier = "some identifier"
+/*:
+ so you can query it using `app.buttons["some identifier"]` even if your design
+ team or translation team updated the text been displayed on the interface element.
+ 
+ You may still be wondering, why would your small user base ever use your app that way?
  - Important: However, it's exactly the other way around.
  It's **YOU** who empowers more users to enjoy your app, to be free, independent, and equal.
  And it is your ***Responsibility*** to NOT discriminate against any single individual.
 
  Either way, why don't we give it a try and see for yourself?
+ 
+ ---
+ 
+ ## Basics of been Accessible
+ The most common problem is some elements of your UI a not exposed to Voice Over.
+ - Example: Here we are using a `UIImageView` with an icon image to serve as a button,
+ but Voice Over users can't access it because by default, images are not accessible elements
+ (you probably don't want a background image to be read out for it's not an essential part of your application).
  */
-//: ## Basics of been accessible
-//: The most common problem is some elements of your UI a not exposed to Voice Over.
-import UIKit
-//: - Example: Here we are using a `UIImageView` with an icon image to serve as a button, but Voice Over users can't access it because by default, images are not accessible elements (you probably don't want a background image to be read out for it's not an essential part of your application).
-let button = makeThemeChoosingImageButton()
-import PlaygroundSupport
-PlaygroundPage.current.liveView = button
+button = makeThemeChoosingImageButton()
 //: But in this case, we do want to make it sounds like a button to Voice Over users.
 //: - Experiment: So what do we need to do? That's simple:
 //: 1. make it an accessible element

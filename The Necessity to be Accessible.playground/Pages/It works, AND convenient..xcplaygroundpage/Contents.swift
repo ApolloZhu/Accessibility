@@ -1,7 +1,8 @@
 /*:
+ - Dynamic Type
  - Group elements together
  - Focus + Magic Tap
- - Taptic
+ - Haptic feedback
  - Drag n Drop accessibility
  */
 
