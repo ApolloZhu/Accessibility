@@ -22,34 +22,31 @@
 
  You may still not be convineced, wondering why would your small user base ever use your app that way.
  - Important: However, it's exactly the other way around.
- It's ***YOU*** who empowers more users to enjoy your app, to be free, independent, and equal.
+ It's **YOU** who empowers more users to enjoy your app, to be free, independent, and equal.
  And it is your ***Responsibility*** to NOT discriminate against any single individual.
 
  Either way, why don't we give it a try and see for yourself?
  */
 //: ## Basics of been accessible
 //: The most common problem is some elements of your UI a not exposed to Voice Over.
-//: - Example: Here we are using an image view with an icon image to serve as a button, but Voice Over users can't access it
 import UIKit
-import PlaygroundSupport
-public class ClickableImage: UIImageView {
-    public override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        isUserInteractionEnabled = true
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(randomBackgroundColor))
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    @objc private func randomBackgroundColor() {
-        tintColor = UIColor(red: CGFloat.random(in: 0...1),
-                            green: CGFloat.random(in: 0...1),
-                            blue: CGFloat.random(in: 0...1),
-                            alpha: 1)
-    }
-}
-
-let button = ClickableImage(image: #imageLiteral(resourceName: "paint.png").withRenderingMode(.alwaysTemplate))
-button
-//: Isn't that simple? That's the same if you have some other custom views serving as a control or displays information.
-//: [Previous](@previous) | [Next](@next)
+//: - Example: Here we are using a `UIImageView` with an icon image to serve as a button, but Voice Over users can't access it because by default, images are not accessible elements (you probably don't want a background image to be read out for it's not an essential part of your application).
+let button = makeThemeChoosingImageButton()
+//: But in this case, we do want to make it sounds like a button to Voice Over users.
+//: - Experiment: So what do we need to do? That's simple:
+//: 1. make it an accessible element
+button.isAccessibilityElement = true
+//: 2. Use a label to describe what it is
+button.accessibilityLabel = "Switch Theme"
+//: 3. Add a button trait to describe its role
+button.accessibilityTraits = [.button, button.accessibilityTraits]
+//: 4. If applicable, assign it a value description
+button.accessibilityValue = "Light Theme"
+//: 5. And provide a hint so users know what they can do with it
+button.accessibilityHint = "Double tap to switch theme"
+//: That's it. Isn't that simple?
+//:
+//: - Note: The process will be the same if you have some other custom views
+//: serving as a control or been used to display information.
+//:
+//: [Previous](@previous) | [➜ Next: Colors](@next)
