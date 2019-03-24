@@ -1,7 +1,7 @@
 import UIKit
 
 public func makeThemeChoosingImageButton() -> UIImageView {
-    return ChooseThemeControl(image: UIImage(named: "paint").withRenderingMode(.alwaysTemplate))
+    return ChooseThemeControl(image: UIImage(named: "paint")!.withRenderingMode(.alwaysTemplate))
 }
 
 class ChooseThemeControl: UIImageView {
