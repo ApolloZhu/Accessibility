@@ -10,9 +10,10 @@ class ChooseThemeControl: UIImageView {
         if isUserInteractionEnabled { return }
         isUserInteractionEnabled = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleTheme))
-        tapGestureRecognizer.numberOfTapsRequired = 1
+        tapGestureRecognizer.numberOfTapsRequired = 2
         addGestureRecognizer(tapGestureRecognizer)
         tintColor = .black
+        backgroundColor = .white
     }
     
     @objc private func toggleTheme() {

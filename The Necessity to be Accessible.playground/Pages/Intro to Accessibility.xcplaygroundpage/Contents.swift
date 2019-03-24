@@ -32,6 +32,8 @@
 import UIKit
 //: - Example: Here we are using a `UIImageView` with an icon image to serve as a button, but Voice Over users can't access it because by default, images are not accessible elements (you probably don't want a background image to be read out for it's not an essential part of your application).
 let button = makeThemeChoosingImageButton()
+import PlaygroundSupport
+PlaygroundPage.current.liveView = button
 //: But in this case, we do want to make it sounds like a button to Voice Over users.
 //: - Experiment: So what do we need to do? That's simple:
 //: 1. make it an accessible element
