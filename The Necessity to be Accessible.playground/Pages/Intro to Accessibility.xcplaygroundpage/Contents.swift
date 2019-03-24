@@ -5,11 +5,13 @@
  Based on [World Health Organization](https://www.who.int/topics/disabilities/en/),
  over 1,000,000,000 (1 billion) people have some kind of disabilitiy, that is,
  **1 out of every 7** users of your app needs to interact with your app through *Voice Over*.
- And you might need to use it too (hint hint, temporary disability, or simply when you are old).
+ And you might need to use it too (hint hint, temporary disability, when you are old,
+ or maybe when you want to ask Voice Over to read an article to you
+ so you don't have to look at your screen and protect your eyes).
 
- But been accessible is not just rewriting your app for those with disabilities,
- it's improving the user experience for everyone, because Voice Over is not just a screen reader,
- but an alternative method to navigate and test your awesome apps,
+ So been accessible is not just rewriting your app for those with disabilities,
+ it's improving the user experience for everyone and Voice Over is not just a screen reader.
+ It's an alternative method to navigate and test your awesome apps,
  and a great way to show your app is truly easy to use and easy to understand.
 
  - Example: My dad always says he get everything correct on exams with his eyes closed.
@@ -47,6 +49,7 @@ button.accessibilityValue = "Light Theme"
 //: 5. And provide a hint so users know what they can do with it
 button.accessibilityHint = "Double tap to switch theme"
 //: That's it. Isn't that simple?
+//: It's really a low effort but highly rewarding experience.
 //:
 //: - Note: The process will be the same if you have some other custom views
 //: serving as a control or been used to display information.

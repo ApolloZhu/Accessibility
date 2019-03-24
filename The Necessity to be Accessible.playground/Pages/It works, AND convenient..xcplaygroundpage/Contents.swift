@@ -5,4 +5,4 @@
  - Drag n Drop accessibility
  */
 
-//: [Previous](@previous) | [Next](@next)
+//: [Previous](@previous) | [➜ Next: Making this Playground "Accessible"](@next)

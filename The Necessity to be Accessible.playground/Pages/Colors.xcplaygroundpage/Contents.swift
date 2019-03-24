@@ -1,7 +1,5 @@
-//: [Previous](@previous)
-
 import Foundation
 
 var str = "Hello, playground"
 
-//: [Next](@next)
+//: [Previous](@previous) | [➜ Next: Universal Design](@next)

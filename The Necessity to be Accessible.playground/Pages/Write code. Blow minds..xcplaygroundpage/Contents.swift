@@ -6,4 +6,4 @@ import Foundation
 
 var str = "Hello, playground"
 
-//: [Next: Intro to Accessibility](@next)
+//: [➜ Next: Intro to Accessibility](@next)
