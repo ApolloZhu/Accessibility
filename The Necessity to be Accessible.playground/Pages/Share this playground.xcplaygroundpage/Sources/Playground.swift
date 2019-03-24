@@ -136,9 +136,9 @@ extension Playground: CustomPlaygroundDisplayConvertible {
         return pages.reduce("") {
             (result: String, page: Playground.Page) -> String in
             let sections: String = page.sections?.reduce("", {
-                return $0 + "\t- \($1.title)\n"
+                return "\($0)\t+ \($1.title)\n"
             }) ?? ""
-            return result + "- \(page.title)\n" + sections
+            return "\(result)- **\(page.title)**\n\(sections)\n"
         }
     }
 }
