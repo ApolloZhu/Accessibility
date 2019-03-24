@@ -24,34 +24,58 @@ class WelcomeView: UIView {
     
     fileprivate static var current: WelcomeView?
     
+    fileprivate var isAnimating: Bool = true {
+        didSet {
+            if isAnimating {
+                animatingView.isHidden = false
+                staticView.isHidden = true
+            } else {
+                staticView.isHidden = false
+                animatingView.isHidden = true
+            }
+        }
+    }
+    
+    private let staticView = StaticView()
+    private let animatingView = AnimatingView()
+    
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         backgroundColor = #colorLiteral(red: 0.07058823529, green: 0.1019607843, blue: 0.1843137255, alpha: 1)
-        
         let label = UILabel()
         label.text = "🤯"
         label.font = .preferredFont(forTextStyle: .largeTitle)
         label.sizeToFit()
         addSubview(label)
+        addSubview(staticView)
+        addSubview(animatingView)
         label.translatesAutoresizingMaskIntoConstraints = false
+        staticView.translatesAutoresizingMaskIntoConstraints = false
+        animatingView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: centerYAnchor)
+            label.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            staticView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            staticView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            staticView.widthAnchor.constraint(equalTo: widthAnchor),
+            staticView.heightAnchor.constraint(equalTo: heightAnchor),
+            
+            animatingView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            animatingView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            animatingView.widthAnchor.constraint(equalTo: widthAnchor),
+            animatingView.heightAnchor.constraint(equalTo: heightAnchor)
         ])
+        staticView.isHidden = true
     }
-    
-    var isAnimating = true {
-        didSet {
-            emitterLayer.emitterCells?.forEach {
-                $0.birthRate = isAnimating ? 1.2 : 0
-            }
-            setNeedsDisplay()
-        }
-    }
-    
+}
+
+let colors = [#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1), #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1), #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1), #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)]
+let images = (1...10).map { UIImage(named: "\($0).png")! }
+
+class StaticView: UIView {
     override func draw(_ rect: CGRect) {
-        defer { super.draw(rect) }
-        if isAnimating { return }
+        super.draw(rect)
         for image in images {
             let template = image.withRenderingMode(.alwaysTemplate)
             let imageWidth = image.size.width
@@ -67,12 +91,7 @@ class WelcomeView: UIView {
             }
         }
     }
-
 }
-
-let colors = [#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1), #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1), #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1), #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)]
-let images = (1...10).map { UIImage(named: "\($0).png")! }
-
 
 class AnimatingView: UIView {
     override class var layerClass: AnyClass {
@@ -83,13 +102,21 @@ class AnimatingView: UIView {
         return layer as! CAEmitterLayer
     }
     
+//    var isAnimating = true {
+//        didSet {
+//            emitterLayer.emitterCells?.forEach {
+//                $0.birthRate = isAnimating ? 1.2 : 0
+//            }
+//            setNeedsDisplay()
+//        }
+//    }
+    
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         emitterLayer.emitterPosition = CGPoint(x: bounds.midX, y: bounds.midY)
         emitterLayer.renderMode = .unordered
         emitterLayer.emitterCells = makeEmitterCells()
     }
-    
     
     private func makeEmitterCells() -> [CAEmitterCell] {
         return images.flatMap { image -> [CAEmitterCell] in
