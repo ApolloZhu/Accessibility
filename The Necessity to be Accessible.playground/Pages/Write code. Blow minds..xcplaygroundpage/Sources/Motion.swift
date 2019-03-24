@@ -20,8 +20,6 @@ public func disableAnimation() {
 }
 
 class WelcomeView: UIView {
-
-    
     fileprivate static var current: WelcomeView?
     
     fileprivate var isAnimating: Bool = true {
@@ -33,6 +31,8 @@ class WelcomeView: UIView {
                 staticView.isHidden = false
                 animatingView.isHidden = true
             }
+            setNeedsLayout()
+            setNeedsDisplay()
         }
     }
     
@@ -46,9 +46,9 @@ class WelcomeView: UIView {
         label.text = "🤯"
         label.font = .preferredFont(forTextStyle: .largeTitle)
         label.sizeToFit()
-        addSubview(label)
         addSubview(staticView)
         addSubview(animatingView)
+        addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         staticView.translatesAutoresizingMaskIntoConstraints = false
         animatingView.translatesAutoresizingMaskIntoConstraints = false
@@ -113,9 +113,13 @@ class AnimatingView: UIView {
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        emitterLayer.emitterPosition = CGPoint(x: bounds.midX, y: bounds.midY)
         emitterLayer.renderMode = .unordered
         emitterLayer.emitterCells = makeEmitterCells()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        emitterLayer.emitterPosition = CGPoint(x: bounds.midX, y: bounds.midY)
     }
     
     private func makeEmitterCells() -> [CAEmitterCell] {
