@@ -90,9 +90,9 @@ let structure: [(page: String, sections: [String])] = [
         ]),
     (NSLocalizedString("It works, AND convenient.", comment: ""), [
         NSLocalizedString("No good design, but Excellent Design", comment: ""),
-        NSLocalizedString("Aggregate", comment: ""),
-        NSLocalizedString("Disect", comment: ""),
-        NSLocalizedString("Fine Tune", comment: "")
+        NSLocalizedString("Navigate It!", comment: ""),
+        NSLocalizedString("Rotors for the Pros", comment: ""),
+        NSLocalizedString("Is this Magic?", comment: "")
         ]),
     (NSLocalizedString("Share this playground", comment: ""), [
         NSLocalizedString("Expose Contents", comment: ""),
@@ -136,7 +136,7 @@ extension Playground: CustomPlaygroundDisplayConvertible {
         return pages.reduce("") {
             (result: String, page: Playground.Page) -> String in
             let sections: String = page.sections?.reduce("", {
-                return "\($0)\t+ \($1.title)\n"
+                return "\($0 ?? "")\t+ \($1.title)\n"
             }) ?? ""
             return "\(result)- **\(page.title)**\n\(sections)\n"
         }

@@ -43,12 +43,15 @@ button.accessibilityIdentifier = "some identifier"
  ## Basics of been Accessible
  The most common problem is some elements of your UI a not exposed to Voice Over.
  - Example: Here we are using a `UIImageView` with an icon image to serve as a button,
+ */
+button = makeThemeChoosingImageButton()
+/*:
  but Voice Over users can't access it because by default, images are not accessible elements
  (you probably don't want a background image to be read out for it's not an essential part of your application).
  */
-button = makeThemeChoosingImageButton()
-//: But in this case, we do want to make it sounds like a button to Voice Over users.
-//: - Experiment: So what do we need to do? That's simple:
+voiceOver(button)
+//: So, we do want to make it sounds like a button to Voice Over users.
+//: - Experiment: What do we need to do? That's simple:
 //: 1. make it an accessible element
 button.isAccessibilityElement = true
 //: 2. Use a label to describe what it is
@@ -60,6 +63,7 @@ button.accessibilityValue = "Light Theme"
 //: 5. And provide a hint so users know what they can do with it
 button.accessibilityHint = "Double tap to switch theme"
 //: That's it. Isn't that simple?
+voiceOver(button)
 //: It's really a low effort but highly rewarding experience.
 //: Through these few lines of code, we achieved our goal to
 //: - make sure the users know everything is there,
