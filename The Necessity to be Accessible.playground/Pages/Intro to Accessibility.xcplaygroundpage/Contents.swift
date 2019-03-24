@@ -61,6 +61,10 @@ button.accessibilityValue = "Light Theme"
 button.accessibilityHint = "Double tap to switch theme"
 //: That's it. Isn't that simple?
 //: It's really a low effort but highly rewarding experience.
+//: Through these few lines of code, we achieved our goal to
+//: - make sure the users know everything is there,
+//: - expose navigation and interactions, and
+//: - allow them to understand and make sense of what they are doing.
 //:
 //: - Note: The process will be the same if you have some other custom views
 //: serving as a control or been used to display information.
