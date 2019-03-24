@@ -26,9 +26,13 @@ enum CustomControlConfiguration { // for the advanced, this prevents init
     }
     static var font: UIFont! {
         if UIAccessibility.isBoldTextEnabled {
-            return UIFont(name: "AmericanTypewriter-Bold", size: 14)
+            return UIFontMetrics.default.scaledFont(
+                for: UIFont(name: "AmericanTypewriter-Bold", size: 14)!)
         } else {
-            return UIFont(name: "AmericanTypewriter", size: 14)
+//: - Note: We are using UIFontMetrics for supporting Dynamic Type, and
+//: our font will be scaled up/down based on user settings automatically.
+            return UIFontMetrics.default.scaledFont(
+                for: UIFont(name: "AmericanTypewriter", size: 14)!)
         }
     }
     static var backgroundColor: UIColor {
@@ -46,7 +50,8 @@ UIAccessibility.isInvertColorsEnabled
 //: it's now much simpler. We know our theme switcher button changes color
 //: automatically, so it should not be inverted with the system inversion.
 //: therefore, we can prevent that from happening by simply setting:
-makeThemeChoosingImageButton().accessibilityIgnoresInvertColors = true
+let imageButton = makeThemeChoosingImageButton()
+imageButton.accessibilityIgnoresInvertColors = true
 //: - Note: You probably want to set `accessibilityIgnoresInvertColors` to
 //: `true` for mosto images and videos, otherwise they can look quite scary
 /*:
@@ -86,4 +91,7 @@ label.attributedText = NSAttributedString(
     attributes: [.strikethroughStyle : NSUnderlineStyle.single.rawValue,
                  .baselineOffset     : 0]
 )
+//: and probably generating a Haptic Feedback to let the user
+//: physically feel they got it wrong
+UINotificationFeedbackGenerator().notificationOccurred(.error)
 //: [Previous](@previous) | [➜ Next: Universal Design](@next)
